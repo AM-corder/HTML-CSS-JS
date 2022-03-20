@@ -1,0 +1,215 @@
+@charset "UTF-8";
+/*==== 初期設定 ====*/
+body {
+  width: 100%;
+  margin: 0;
+  color: #2D2D2D;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #2D2D2D;
+}
+
+a:active, a:focus, a:visited {
+  outline: none;
+  color: #2D2D2D;
+}
+
+p, ul, li {
+  margin: 0;
+}
+
+
+/*==== header ====*/
+body {
+    overflow: initial;
+  }
+  
+  @media (max-width: 479px) {
+    body.nav--active {
+      overflow: hidden;
+    }
+  }
+  
+  .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    height: 80px;
+    padding: 0 0 0 40px;
+  }
+  
+  @media (max-width: 479px) {
+    .header {
+      padding: 0 20px;
+    }
+  }
+   
+  .header__logo, .header__menu {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    /*上下（垂直）*/
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    /*左右（水平）*/
+  }
+  
+  .header .menuLink {
+    text-align: center;
+  }
+  
+  .header .menuLink__ja {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .header .menuLink__en {
+    color: #707070;
+  }
+  
+  .header .menu__openbtn {
+    display: none;
+  }
+  
+  @media (max-width: 479px) {
+    .header .menu__openbtn {
+      display: block;
+      /*ボタン外側*/
+      position: relative;
+      /*ボタン内側の基点となるためrelativeを指定*/
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 1px;
+      z-index: 999999;
+      /*ボタン内側*/
+      /*activeクラスが付与されると線が回転して×に*/
+    }
+    .header .menu__openbtn span {
+      display: inline-block;
+      -webkit-transition: all .4s;
+      transition: all .4s;
+      /*アニメーションの設定*/
+      position: absolute;
+      left: 0;
+      height: 3px;
+      border-radius: 1px;
+      background: #000;
+      width: 100%;
+    }
+    .header .menu__openbtn span:nth-of-type(1) {
+      top: 0px;
+    }
+    .header .menu__openbtn span:nth-of-type(2) {
+      top: 8px;
+    }
+    .header .menu__openbtn span:nth-of-type(3) {
+      top: 16px;
+    }
+    .header .menu__openbtn.active span:nth-of-type(1) {
+      top: 3px;
+      left: 8px;
+      -webkit-transform: translateY(6px) rotate(-45deg);
+              transform: translateY(6px) rotate(-45deg);
+      width: 50%;
+    }
+    .header .menu__openbtn.active span:nth-of-type(2) {
+      opacity: 0;
+      /*真ん中の線は透過*/
+    }
+    .header .menu__openbtn.active span:nth-of-type(3) {
+      top: 15px;
+      left: 8px;
+      -webkit-transform: translateY(-6px) rotate(45deg);
+              transform: translateY(-6px) rotate(45deg);
+      width: 50%;
+    }
+  }
+  
+  .header .menu__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+  .header .menu__list .menu__item {
+    width: 120px;
+    height: 5em;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  }
+  
+  .header .menu__list .menu__item .menuLink {
+    display: block;
+    margin: auto;
+  }
+  
+  .header .menu__list .menu__contact {
+    width: 100px;
+    background-color: #DBCEA0;
+  }
+  
+  .header .menu__list .menu__contact--only-sp {
+    display: none;
+  }
+  
+  @media (max-width: 479px) {
+    .header .menu__list {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      position: fixed;
+      z-index: 999;
+      padding-top: 100px;
+      /*ナビのスタート位置と形状*/
+      top: -120%;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #fff;
+      /*動き*/
+      -webkit-transition: all 0.6s;
+      transition: all 0.6s;
+    }
+    .header .menu__list .menu__contact {
+      width: 200px;
+    }
+    .header .menu__list .menu__contact img {
+      vertical-align: middle;
+      width: 1.5em;
+      height: 1em;
+    }
+    .header .menu__list .menu__contact--only-sp {
+      display: inline-block;
+      font-weight: bold;
+    }
+    .header .menu__list.active {
+      /*アクティブクラスがついたら位置を0に*/
+      top: 0;
+    }
+  }
+  

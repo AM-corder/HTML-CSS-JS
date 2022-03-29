@@ -1,0 +1,243 @@
+@charset "utf-8";
+
+/*==== 初期設定 ====*/
+$mainTxt-color: #2D2D2D;
+$subTxt-color: #707070;
+$moreLink-color: #DBCEA0;
+
+body{
+  width: 100%;
+  margin: 0;
+  color: $mainTxt-color;
+}
+img{
+  max-width: 100%;
+}
+ul{
+  list-style-type: none;
+  padding: 0;
+}
+
+a{
+  text-decoration: none;
+  color: $mainTxt-color; 
+  &:active,
+  &:focus,
+  &:visited{
+    outline: none;
+    color: $mainTxt-color; 
+  }
+}
+p,ul,li{
+  margin: 0;
+}
+
+$pc: 1024px;
+$tab: 679px;
+$sp: 479px;
+
+@mixin pc{
+  @media(max-width: ($pc)){
+    @content;
+  }
+}
+@mixin tab{
+  @media(max-width: ($tab)){
+    @content;
+  }
+}
+@mixin sp{
+  @media(max-width: ($sp)){
+    @content;
+  }
+}
+
+/*==== 共通設定 ====*/
+.section{
+  padding: 100px 0;
+  @include sp{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+.section--bg-green{
+  color: #fff;
+}
+.btn{
+  width: 180px;
+  height: 3.5em;
+  margin: auto;
+  a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    line-height: 3.5em;
+    transition: .5s;
+    &:hover{
+      background-color: transparent;
+    }
+  }
+  &--bg-brown{
+    a{
+      background-color: $moreLink-color;
+      &:hover{
+        color: $moreLink-color;
+        border: 1px solid $moreLink-color;
+      }
+    }
+  }
+}
+
+/*==== header ====*/
+body{
+  overflow: initial;
+  @include sp{
+    &.nav--active{
+      overflow: hidden; //メニューバー展開中はスクロール禁止
+    }
+  }
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 0 0 40px;
+
+  @include sp{
+    padding: 0 20px;
+  }
+
+  &__logo,
+  &__menu{
+    display: flex;
+    align-items: center;  /*上下（垂直）*/
+    justify-content: center; /*左右（水平）*/
+  }
+
+  .menu{
+    &Link{
+      text-align: center;
+  
+      &__ja{
+        font-size: 16px;
+        font-weight: bold;
+      }
+      &__en{
+        color: $subTxt-color;
+      }
+    }
+
+    &__openbtn{
+      display: none;
+      @include sp{
+          display: block;
+          /*ボタン外側*/
+          position: relative;/*ボタン内側の基点となるためrelativeを指定*/
+          cursor: pointer;
+          width: 30px;
+          height: 30px;
+          border-radius: 1px;
+          z-index: 999999;
+      
+          /*ボタン内側*/
+          span{
+              display: inline-block;
+              transition: all .4s;/*アニメーションの設定*/
+              position: absolute;
+              left: 0;
+              height: 3px;
+              border-radius: 1px;
+              background: #000;
+              width: 100%;
+
+              &:nth-of-type(1) {
+                top:0px; 
+              }
+              &:nth-of-type(2) {
+                top:8px; 
+              }
+              &:nth-of-type(3) {
+                top:16px; 
+              }
+            }
+
+          /*activeクラスが付与されると線が回転して×に*/  
+          &.active span{
+            &:nth-of-type(1) {
+              top: 3px;
+              left: 8px;
+              transform: translateY(6px) rotate(-45deg);
+              width: 50%;
+            }
+            &:nth-of-type(2) {
+              opacity: 0;/*真ん中の線は透過*/
+            }
+            &:nth-of-type(3){
+              top: 15px;
+              left: 8px;
+              transform: translateY(-6px) rotate(45deg);
+              width: 50%;
+            }
+          }
+        }    
+      }  
+    &__list{
+          display: flex;
+          height: 100%;
+          align-items: center;
+
+          .menu__item{
+            width: 120px;
+            height: 5em;
+            display: inline-flex;
+            .menuLink{
+              display: block;
+              margin: auto;
+            }
+          }
+          .menu__contact{
+            width: 100px;
+            background-color: $moreLink-color;  
+            &--only-sp{
+              display: none;
+            }
+          }
+
+        @include sp{
+           flex-direction: column;
+            position:fixed;
+            z-index: 999;
+            padding-top: 100px;
+
+            /*ナビのスタート位置と形状*/
+            top:-120%;
+            left:0;
+            width:100%;
+            height: 100vh;
+            background:#fff;
+            /*動き*/
+            transition: all 0.6s;
+
+            .menu__contact{
+              width: 200px;
+              & img{
+                vertical-align: middle;
+                width: 1.5em;
+                height: 1em;
+              }
+            }
+            .menu__contact--only-sp{
+              display: inline-block;
+              font-weight: bold;
+            }
+
+
+            &.active{
+              /*アクティブクラスがついたら位置を0に*/
+              top: 0;
+            }           
+        }                 
+      }
+    }
+  }
